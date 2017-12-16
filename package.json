@@ -1,0 +1,27 @@
+{
+  "name": "media-api",
+  "version": "1.0.0",
+  "description": "CRUD API for media",
+  "main": "index.js",
+  "scripts": {
+    "start": "export NODE_ENV=production && node index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js index.js",
+    "test": "export NODE_ENV=test && mocha server/**/*.test.js",
+    "test-watch": "./node_modules/nodemon/bin/nodemon.js --exec 'npm test'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.13.7",
+    "validator": "^9.2.0"
+  },
+  "devDependencies": {
+    "expect": "^21.2.1",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.13.3",
+    "supertest": "^3.0.0"
+  }
+}
