@@ -16,6 +16,12 @@ router.put('/:id', mediaCtrl.updateMedia)
 
 router.delete('/:id', mediaCtrl.deleteMedia)
 
+router.post('/:mediaId/genre', mediaCtrl.addGenre)
+
+router.put('/:mediaId/genre/:genreId', mediaCtrl.updateGenre)
+
+router.delete('/:mediaId/genre/:genreId', mediaCtrl.deleteGenre)
+
 module.exports = router
 
 

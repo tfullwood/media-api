@@ -81,6 +81,10 @@ function createMedia(req, res) {
     return res.status(400).json({
       error: 'Thumbnail must be at least 2 characters.'
     })
+  } else if (req.body.genre_title && _.trim(req.body.genre_title).length < 2) {
+    return res.status(400).json({
+      error: 'Genre Title must be at least 2 characters.'
+    })
   }
   //validation passed - send to db
 
@@ -92,7 +96,10 @@ function createMedia(req, res) {
     seriesOrder: trim(req.body.series_order),
     description: trim(req.body.description),
     thumbnail: trim(req.body.thumbnail),
-    location: trim(req.body.location)
+    location: trim(req.body.location),
+    genre: {
+      title: trim(req.body.genre_title)
+    }
   }
 
   var media = new Media(vals)
@@ -155,6 +162,7 @@ function updateMedia(req, res) {
         media.description = trim(req.body.description)
         media.thumbnail = thumbnail
         media.location = trim(req.body.location)
+        media.removed = false
 
         media.save()
           .then((media) => {
@@ -211,10 +219,140 @@ function deleteMedia(req, res) {
   }
 } //end deleteMedia
 
+function addGenre(req, res) {
+  Media.findById(req.params.mediaId)
+      .then((media) => {
+        //validation
+        if (!req.body.title || _.trim(req.body.title).length < 2) {
+          return res.status(400).json({
+            error: 'Genre Title is required and must be at least 2 characters.'
+          })
+        }
+
+        var genre = {
+          title: trim(req.body.title)
+        }
+
+        media.genre.push(genre)
+
+        media.save()
+          .then((media) => {
+            res.json(media)
+          })
+          .catch((e) => {
+            res.status(500).json({
+              error: e
+            })
+          })
+      })
+      .catch((e) => {
+        res.status(400).json({
+          error: e
+        })
+      })
+} //end addGenre
+
+function updateGenre(req, res) {
+  Media.findById(req.params.mediaId)
+      .then((media) => {
+        //validation
+        if (!req.body.title || _.trim(req.body.title).length < 2) {
+          return res.status(400).json({
+            error: 'Genre Title is required and must be at least 2 characters.'
+          })
+        }
+
+        if (!media.genre.id(req.params.genreId)) {
+          return res.status(400).json({
+            error: 'No Genre found with that ID.'
+          })
+        }
+
+        media.genre.id(req.params.genreId).title = req.body.title
+        media.genre.id(req.params.genreId).removed = false
+
+        media.save()
+          .then((media) => {
+            res.json(media)
+          })
+          .catch((e) => {
+            res.status(500).json({
+              error: e
+            })
+          })
+      })
+      .catch((e) => {
+        res.status(400).json({
+          error: e
+        })
+      })
+} //end updateGenre
+
+function deleteGenre(req, res) {
+  if (req.query.frd == 'true') {
+    //permanently remove the media
+    Media.findById(req.params.mediaId)
+        .then((media) => {
+          if (!media.genre.id(req.params.genreId)) {
+            return res.status(400).json({
+              error: 'No Genre found with that ID.'
+            })
+          }
+
+          media.genre.id(req.params.genreId).remove()
+
+          media.save()
+            .then((media) => {
+              res.json(media)
+            })
+            .catch((e) => {
+              res.status(500).json({
+                error: e
+              })
+            })
+        })
+        .catch((e) => {
+          res.status(400).json({
+            error: e
+          })
+        })
+  } else {
+    Media.findById(req.params.mediaId)
+      .then((media) => {
+        //validation
+        if (!media.genre.id(req.params.genreId)) {
+          return res.status(400).json({
+            error: 'No Genre found with that ID.'
+          })
+        }
+
+        media.genre.id(req.params.genreId).removed = true
+
+        media.save()
+          .then((media) => {
+            res.json(media)
+          })
+          .catch((e) => {
+            res.status(500).json({
+              error: e
+            })
+          })
+      })
+      .catch((e) => {
+        res.status(400).json({
+          error: e
+        })
+      })
+  }
+} //end deleteGenre
+
 module.exports = {
   getMedia,
   getMedias,
   createMedia,
   updateMedia,
-  deleteMedia
+  deleteMedia,
+  addGenre,
+  updateGenre,
+  deleteGenre
 }

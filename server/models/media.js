@@ -2,6 +2,18 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 var ObjectId = mongoose.Types.ObjectId
 
+const GenreSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  removed: {
+    type: Boolean,
+    default: false
+  }
+})
+
+
 const MediaSchema = new Schema({
   title: {
     type: String,
@@ -23,10 +35,12 @@ const MediaSchema = new Schema({
   location: {
     type: String,
     required: true
-  }, removed: {
+  },
+  removed: {
     type: Boolean,
     default: false
-  }
+  },
+  genre: [GenreSchema]
 })
 
 MediaSchema.statics = {
@@ -77,6 +91,18 @@ MediaSchema.statics = {
       .skip(Number(start))
       .limit(Number(limit))
       .then((medias) => {
+        //check if any genres have been deleted and filter them out of the results
+        medias = medias.filter((media) => {
+          if (media.genre.length > 0) {
+            media.genre = media.genre.filter((genre) => {
+              return genre.removed === false
+            })
+            return media
+          } else {
+            return media
+          }
+        })
+
         return medias
       })
       .catch((e) => {
