@@ -10,36 +10,11 @@ router.get('/:id', mediaCtrl.getMedia)
 
 router.get('/', mediaCtrl.getMedias)
 
+router.post('/', mediaCtrl.createMedia)
 
+router.put('/:id', mediaCtrl.updateMedia)
 
-
-
-router.post('/', (req, res) => {
-  //res.send('media post')
-
-  var media = new Media({
-    title: req.body.title,
-    _parent: req.body.parent,
-    seriesOrder: req.body.seriesOrder,
-    description: req.body.description,
-    thumbnail: req.body.thumbnail,
-    location: req.body.location
-  })
-
-  media.save().then((doc) => {
-    res.send(doc)
-  }, (e) => {
-    res.status(400).json({error: e})
-  })
-})
-
-router.put('/:id', (req, res) => {
-  res.send('media updated')
-})
-
-router.delete('/:id', (req, res) => {
-  res.send(`Delete media: ${req.params.id}`)
-})
+router.delete('/:id', mediaCtrl.deleteMedia)
 
 module.exports = router
 
@@ -63,4 +38,23 @@ module.exports = router
 //   //   })
 //     ////////////////////////////// MOVE THIS TO THE CONTROLLER //////////////////////////////
 //
+// })
+
+// router.post('/', (req, res) => {
+//   //res.send('media post')
+//
+//   var media = new Media({
+//     title: req.body.title,
+//     _parent: req.body.parent,
+//     seriesOrder: req.body.seriesOrder,
+//     description: req.body.description,
+//     thumbnail: req.body.thumbnail,
+//     location: req.body.location
+//   })
+//
+//   media.save().then((doc) => {
+//     res.send(doc)
+//   }, (e) => {
+//     res.status(400).json({error: e})
+//   })
 // })

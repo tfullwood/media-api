@@ -57,9 +57,11 @@ MediaSchema.statics = {
       })
     }
   }, //end get
-  list(start, limit, search) {
-    var query = {
-      removed: false
+  list(start, limit, search, removed) {
+    var query = {}
+
+    if (!removed) {
+      query.removed = false
     }
 
     if (search) {
