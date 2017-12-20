@@ -27,5 +27,6 @@ const populateMedias = (done) => {
 }
 
 module.exports = {
+  medias,
   populateMedias
 }

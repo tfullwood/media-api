@@ -35,6 +35,7 @@ app.listen(port, () => {
   console.log(`Server started on port ${port}`)
 })
 
+//export module for tests
 module.exports = {
   app
 }

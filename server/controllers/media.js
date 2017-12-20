@@ -97,16 +97,21 @@ function createMedia(req, res) {
     description: trim(req.body.description),
     thumbnail: trim(req.body.thumbnail),
     location: trim(req.body.location),
-    genre: {
+  }
+
+  if (req.body.genre_title) {
+    vals.genre = {
       title: trim(req.body.genre_title)
     }
   }
+
 
   var media = new Media(vals)
 
   media.save().then((doc) => {
     res.send(doc)
   }, (e) => {
+    console.log(e);
     res.status(500).json({error: e})
   })
 } //end createMedia
