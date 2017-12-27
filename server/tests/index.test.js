@@ -31,9 +31,8 @@ describe('media endpoints', () => {
         expect(res.body.removed).toBe(false)
       })
       .end(done)
-  })
+  }) //end should get single result
 
-  //post
   it('should add a media record to the database', (done) => {
     var title = 'Test Post Title'
     var description = 'Test post description'
@@ -67,7 +66,7 @@ describe('media endpoints', () => {
           done()
         }).catch((e) => done(e))
       })
-  })
+  }) //end should post
 
   //put
 
