@@ -1,12 +1,10 @@
 {
   "test": {
     "PORT": 3000,
-    "MONGODB_URI": "mongodb://localhost:27017/MediaApiTest",
-    "JWT_SECRET": "Your Secret Here"
+    "MONGODB_URI": "mongodb://localhost:27017/MediaApiTest"
   },
   "development": {
     "PORT": 3000,
-    "MONGODB_URI": "mongodb://localhost:27017/MediaApi",
-    "JWT_SECRET": "Your Secret Here"
+    "MONGODB_URI": "mongodb://localhost:27017/MediaApi"
   }
 }
