@@ -7,13 +7,15 @@
     "start": "export NODE_ENV=production && node index.js",
     "dev": "./node_modules/nodemon/bin/nodemon.js index.js",
     "test": "export NODE_ENV=test && mocha server/**/*.test.js",
-    "test-watch": "./node_modules/nodemon/bin/nodemon.js --exec 'npm test'"
+    "test-watch": "./node_modules/nodemon/bin/nodemon.js --exec 'npm test'",
+    "gen-docs": "./node_modules/.bin/jsdoc $DOC -c config/jsdoc.json -d docs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "jsdoc": "^3.5.5",
     "lodash": "^4.17.4",
     "mongoose": "^4.13.7",
     "validator": "^9.2.0"

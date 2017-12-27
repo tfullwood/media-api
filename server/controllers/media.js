@@ -65,7 +65,7 @@ function createMedia(req, res) {
     return res.status(400).json({
       error: 'Title and Location must be more than 2 characters'
     })
-  } else if (req.body.parent && _.trim(req.body.description).length < 2) {
+  } else if (req.body.description && _.trim(req.body.description).length < 2) {
     return res.status(400).json({
       error: 'Description must be more than 2 characters'
     })

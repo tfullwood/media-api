@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const _ = require('lodash')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 //Local Imports
 var routes = require('./server/routes/index')
@@ -27,6 +28,9 @@ const port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+//Setup the documentation endpoint
+app.use("/api/docs", express.static(path.join(__dirname, "docs")))
 
 //Use the imported routes
 app.use('/api', routes)
