@@ -4,13 +4,19 @@ const { Media } = require('../../models/media')
 
 const mediaIdOne = new ObjectID
 const mediaIdTwo = new ObjectID
+const genreId = new ObjectID
 
 const medias = [{
     _id: mediaIdOne,
     title: 'Test Media Title 1',
     description: 'Test media description 1',
     thumbnail: 'http://localhost:3000/public/media1.jpg',
-    location: 'location=http://localhost:3000/public/media/media1.mp4'
+    location: 'location=http://localhost:3000/public/media/media1.mp4',
+    genre: [{
+      'title': 'Media One Genre Title',
+      '_id': genreId,
+      'removed': false
+    }]
   }, {
     _id: mediaIdTwo,
     title: 'Test Media Title 2',

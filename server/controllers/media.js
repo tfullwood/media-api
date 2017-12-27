@@ -157,8 +157,8 @@ function updateMedia(req, res) {
         if (req.body.parent) {
           _parent = req.body.parent
         }
-        if (trim(thumbnail)) {
-          thumbnail = trim(thumbnail)
+        if (trim(req.body.thumbnail)) {
+          thumbnail = trim(req.body.thumbnail)
         }
 
         media.title = trim(req.body.title)
