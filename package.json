@@ -19,7 +19,7 @@
     "lodash": "^4.17.15",
     "mongoose": "^4.13.19",
     "validator": "^9.4.1",
-    "diff": ">=3.5.0" //resolve vuln
+    "diff": ">=3.5.0"
   },
   "devDependencies": {
     "expect": "^21.2.1",
