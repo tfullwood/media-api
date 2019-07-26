@@ -18,7 +18,8 @@
     "jsdoc": "^3.6.3",
     "lodash": "^4.17.15",
     "mongoose": "^4.13.19",
-    "validator": "^9.4.1"
+    "validator": "^9.4.1",
+    "diff": ">=3.5.0" //resolve vuln
   },
   "devDependencies": {
     "expect": "^21.2.1",
